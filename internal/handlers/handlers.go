@@ -19,6 +19,7 @@ func GetPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(http.StatusOK)
 	http.ServeFile(w, r, filepath.Join("..", "index.html"))
 }
 
