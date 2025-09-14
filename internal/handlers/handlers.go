@@ -21,7 +21,7 @@ func GetPage(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
-	http.ServeFile(w, r, filepath.Join("..", "index.html"))
+	http.ServeFile(w, r, "index.html")
 }
 
 func GetFormData(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +32,7 @@ func GetFormData(w http.ResponseWriter, r *http.Request) {
 
 	err := r.ParseMultipartForm(10 << 20)
 	if err != nil {
-		http.Error(w, "error while parsing form", http.StatusInternalServerError)
+		http.Error(w, "error while parsing form", http.StatusBadRequest)
 		return
 	}
 
@@ -52,7 +52,7 @@ func GetFormData(w http.ResponseWriter, r *http.Request) {
 	fileBytes, err := io.ReadAll(formFile)
 
 	if err != nil {
-		http.Error(w, "error while reading file", http.StatusInternalServerError)
+		http.Error(w, "error while reading file", http.StatusBadRequest)
 		return
 	}
 
